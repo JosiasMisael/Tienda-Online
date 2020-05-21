@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <html lang="en">
 <head>
 <title> @yield('title')</title>
@@ -6,24 +7,26 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="description" content="Boutique SB">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+   <!-- CSRF Token -->
+   <meta name="csrf-token" content="{{ csrf_token() }}">
 
-<link rel="stylesheet" type="text/css" href="{{ asset('asset/styles/bootstrap-4.1.2/bootstrap.min.css') }}">
+       <!-- Styles -->
+<link href="{{ asset('css/app.css') }}" rel="stylesheet">
+<link href="{{ asset('css/all.css') }}" rel="stylesheet">
+
+
+
 <link rel="stylesheet" type="text/css" href="{{ asset('asset/plugins/font-awesome-4.7.0/css/font-awesome.min.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ asset('asset/plugins/OwlCarousel2-2.2.1/owl.carousel.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ asset('asset/plugins/OwlCarousel2-2.2.1/owl.theme.default.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ asset('asset/plugins/OwlCarousel2-2.2.1/animate.css') }}">
 
+ @yield('estilos')
 
-<link rel="stylesheet" type="text/css" href="{{ asset('asset/styles/main_styles.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ asset('asset/styles/responsive.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ asset('asset/styles/comun.css') }}">
 
 
 </head>
 <body>
 
 <!-- Menu -->
-
+<div id="app">
 <div class="menu">
 
 	<!-- Search -->
@@ -205,17 +208,10 @@
 </div>
 
 <script src="{{ asset('asset/js/jquery-3.2.1.min.js') }}"></script>
-<script src="{{ asset('asset/styles/bootstrap-4.1.2/popper.js') }}"></script>
-<script src="{{ asset('asset/styles/bootstrap-4.1.2/bootstrap.min.js') }}"></script>
-<script src="{{ asset('asset/plugins/greensock/TweenMax.min.js') }}"></script>
-<script src="{{ asset('asset/plugins/greensock/TimelineMax.min.js') }}"></script>
-<script src="{{ asset('asset/plugins/scrollmagic/ScrollMagic.min.js') }}"></script>
-<script src="{{ asset('asset/plugins/greensock/animation.gsap.min.js') }}"></script>
-<script src="{{ asset('asset/plugins/greensock/ScrollToPlugin.min.js') }}"></script>
-<script src="{{ asset('asset/plugins/OwlCarousel2-2.2.1/owl.carousel.js') }}"></script>
-<script src="{{ asset('asset/plugins/easing/easing.js') }}"></script>
-<script src="{{ asset('asset/plugins/progressbar/progressbar.min.js') }}"></script>
-<script src="{{ asset('asset/plugins/parallax-js-master/parallax.min.js') }}"></script>
-<script src="{{ asset('asset/js/custom.js') }}"></script>
+    <!-- Scripts -->
+<script src="{{ asset('js/app.js') }}"></script>
+<script src="{{ asset('js/all.js') }}"></script>
+
+</div>
 </body>
 </html>
