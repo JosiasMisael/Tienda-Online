@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 3 | Blank Page</title>
+  <title>Boutique | @yield('title')</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -702,12 +702,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Blank Page</h1>
+            <h1>@yield('title')</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Blank Page</li>
+              <li class="breadcrumb-item"><a href="#">Inicio</a></li>
+              <li class="breadcrumb-item active"> @yield('title')</li>
             </ol>
           </div>
         </div>
@@ -716,6 +716,17 @@
 
     <!-- Main content -->
     <section class="content">
+        @if(session('datos'))
+             <div class="alert alert-success alert dismmissible fade show" role="alert">
+               {{session('datos')}}
+            </div>
+           @endif
+           @if(session('cancelar'))
+             <div class="alert alert-danger alert dismmissible fade show" role="alert">
+               {{session('cancelar')}}
+            </div>
+           @endif
+
       @yield('contenido')
     </section>
     <!-- /.content -->
@@ -746,5 +757,7 @@
 <script src="http://127.0.0.1:8000/adminlte/dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="http://127.0.0.1:8000/adminlte/dist/js/demo.js"></script>
+
+<script src="{{ asset('js/app.js') }}"></script>
 </body>
 </html>

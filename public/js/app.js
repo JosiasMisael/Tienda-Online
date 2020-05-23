@@ -49669,6 +49669,51 @@ module.exports = function(module) {
 
 /***/ }),
 
+/***/ "./resources/js/apicategory.js":
+/*!*************************************!*\
+  !*** ./resources/js/apicategory.js ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var apicategory = new Vue({
+  el: '#apicategory',
+  data: {
+    nombre: '',
+    div_mensajeNombre: '',
+    div_claseNombre: 'badge badge-danger',
+    div_aparecer: false,
+    deshabilitar_boton: 1
+  },
+  methods: {
+    getCategory: function getCategory() {
+      var _this = this;
+
+      var url = '/api/category/' + this.nombre;
+      axios.get(url).then(function (response) {
+        _this.div_mensajeNombre = response.data;
+        console.log(response.data);
+
+        if (_this.div_mensajeNombre === "Nombre Existe") {
+          _this.div_claseNombre = 'badge badge-danger';
+          _this.deshabilitar_boton = 1;
+          _this.div_aparecer = true;
+        } else {
+          _this.deshabilitar_boton = 0;
+        }
+      });
+    }
+  },
+  mounted: function mounted() {
+    if (document.getElementById('editar').innerHTML) {
+      this.nombre = document.getElementById('nombretemp').innerHTML;
+      this.deshabilitar_boton = 0;
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./resources/js/app.js":
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
@@ -49704,6 +49749,8 @@ Vue.component('example-component', __webpack_require__(/*! ./components/ExampleC
 var app = new Vue({
   el: '#app'
 });
+
+__webpack_require__(/*! ./apicategory */ "./resources/js/apicategory.js");
 
 /***/ }),
 
@@ -49820,6 +49867,19 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/custom.js":
+/*!********************************!*\
+  !*** ./resources/js/custom.js ***!
+  \********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+$(".alert").fadeTo(3000, 3000).slideUp(800, function () {
+  $(".alert").slideUp(800);
+});
+
+/***/ }),
+
 /***/ "./resources/sass/app.scss":
 /*!*********************************!*\
   !*** ./resources/sass/app.scss ***!
@@ -49832,13 +49892,14 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ 0:
-/*!*************************************************************!*\
-  !*** multi ./resources/js/app.js ./resources/sass/app.scss ***!
-  \*************************************************************/
+/*!**************************************************************************************!*\
+  !*** multi ./resources/js/app.js ./resources/js/custom.js ./resources/sass/app.scss ***!
+  \**************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(/*! C:\xampp\htdocs\laravel7\resources\js\app.js */"./resources/js/app.js");
+__webpack_require__(/*! C:\xampp\htdocs\laravel7\resources\js\custom.js */"./resources/js/custom.js");
 module.exports = __webpack_require__(/*! C:\xampp\htdocs\laravel7\resources\sass\app.scss */"./resources/sass/app.scss");
 
 

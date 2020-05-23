@@ -86,8 +86,7 @@ var app = new Vue({
     },
     methods: {
         getCategory() {
-            let url = 'api/category/'+this.slug;
-            axios.get(url).then(response => {
+            axios.get('api/category/'+this.slug).then(response=> {
                this.div_mensajeslug = response.data;
               // console.log(response.data);
 

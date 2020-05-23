@@ -35,14 +35,11 @@ class CategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function show($slug)
+    public function show($name)
     {
 
-       if (Category::where('slug', $slug)->first()) {
-            return 'Slug existe';
-        }
-        else {
-            return 'Slug Disponible';
+       if (Category::where('name', $name)->first()) {
+            return 'Nombre Existe';
         }
     }
 
