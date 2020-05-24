@@ -11,7 +11,7 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js(['resources/js/app.js','resources/js/custom.js'], 'public/js')
+mix.js(['resources/js/app.js'], 'public/js')
     .sass('resources/sass/app.scss', 'public/css');
 
 
@@ -19,10 +19,9 @@ mix.js(['resources/js/app.js','resources/js/custom.js'], 'public/js')
         'public/asset/plugins/OwlCarousel2-2.2.1/owl.carousel.css',
         'public/asset/plugins/OwlCarousel2-2.2.1/owl.theme.default.css',
         'public/asset/plugins/OwlCarousel2-2.2.1/animate.css',
-        'public/asset/styles/comun.css'
+        'public/asset/styles/comun.css',
+        'public/asset/styles/sweetalert2.min',
     ], 'public/css/all.css');
-
-
 
     mix.scripts([
      'public/asset/plugins/greensock/TweenMax.min.js',
@@ -34,7 +33,10 @@ mix.js(['resources/js/app.js','resources/js/custom.js'], 'public/js')
      'public/asset/plugins/easing/easing.js',
      'public/asset/plugins/progressbar/progressbar.min.js',
      'public/asset/plugins/parallax-js-master/parallax.min.js',
-     'public/asset/js/custom.js'
+     'public/asset/js/custom.js',
+     'public/asset/js/sweetalert2.min.js'
   ], 'public/js/all.js');
 
 
+
+  mix.js(['resources/js/app_admin.js','resources/js/custom.js'], 'public/js')

@@ -1,7 +1,12 @@
 @extends('plantilla.admin')
 
-@section('title','Categoría')
 
+@section('title','Crear Categoría')
+
+@section('breadcrumb')
+ <li class="breadcrumb-item"><a href="{{ route('admin.category.index')}}">Categorías</a></li>
+ <li class="breadcrumb-item active"> @yield('title')</li>
+@endsection
 
 @section('contenido')
           <!-- Default box -->
@@ -29,7 +34,7 @@
                                     @blur="getCategory"
                                     @focus = "div_aparecer= false"
 
-                                class="form-control" type="text" name="name" id="nombre">
+                                class="form-control" type="text" name="name"  value="{{ old('name')}}">
                                 <div v-if="div_aparecer" v-bind:class="div_claseNombre">
                                     @{{ div_mensajeNombre }}
                                 </div>

@@ -14,9 +14,16 @@ class AdminCategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $categorias = Category::orderBy('name')->paginate(4);
+        $busqueda = $request->name;
+        if($busqueda === ''){
+        $categorias = Category::orderBy('name')->paginate(3);
+        }else
+        {
+          $categorias = Category::where('name','like', '%'.$busqueda.'%')->orderBy('name')->paginate(3);
+        }
+
         return view('admin.category.index', compact('categorias'));
     }
     /**
@@ -87,8 +94,15 @@ class AdminCategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy($category)
     {
-        //
+
+         $eliminar = Category::findOrFail($category);
+         $eliminar->delete();
+         return ['redirect' => route('admin.category.index')];
+
+
+
+
     }
 }
