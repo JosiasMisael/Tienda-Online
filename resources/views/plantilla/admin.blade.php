@@ -174,7 +174,7 @@
       </div>
 
       <!-- Sidebar Menu -->
-      @include('modulos.sider')
+      @include('partials.sider')
       <!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->
@@ -203,7 +203,7 @@
     <!-- Main content -->
     <section class="content">
 
-      @include('modulos.message')
+      @include('partials.message')
       @yield('contenido')
     </section>
     <!-- /.content -->

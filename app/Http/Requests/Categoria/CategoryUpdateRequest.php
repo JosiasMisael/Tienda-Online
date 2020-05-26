@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Categoria;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CategoryRequest extends FormRequest
+class CategoryUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,17 +24,17 @@ class CategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'=>'required|min:2|max:100|unique:categories,name',
+            'name'=>'required|min:3|max:100|unique:categories,name,'. $this->category->id,
             'description'=>'required|min:2|max:200'
         ];
     }
-
     public function attributes()
     {
         return [
-            'name' => 'nombre de la categoria',
-            'description' =>  'descripción de la categoria',
+            'name' => 'nombre',
+            'description'=>'descripcion'
         ];
     }
+
 
 }

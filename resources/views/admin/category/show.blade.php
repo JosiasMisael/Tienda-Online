@@ -13,7 +13,7 @@
 @section('contenido')
           <!-- Default box -->
 
-        <div id="apicategory">
+        <div id="category">
             <form>
              @csrf
           <div class="card">
@@ -32,12 +32,7 @@
                 <span style="display:none" id="nombretemp">{{$category->name}}</span>
                <div class="form-group">
                 <label for="nombre">Nombre</label>
-                    <input v-model="nombre"
-                     @blur="getCategory"
-                     @focus = "div_aparecer= false"
-                     readonly
-                     class="form-control" type="text" name="name" id="nombre" value="{{$category->name}}">
-
+                    <input readonly class="form-control" type="text" name="name" id="nombre" value="{{$category->name}}">
                              <label for="descripcion">Descripción</label>
                                    <textarea class="form-control"  name="description" id="descripcion" cols="30" rows="5"readonly>{{$category->description}}</textarea>
             </div>

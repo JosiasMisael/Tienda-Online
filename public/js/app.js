@@ -49677,32 +49677,9 @@ module.exports = function(module) {
 /***/ (function(module, exports) {
 
 var apicategory = new Vue({
-  el: '#apicategory',
-  data: {
-    nombre: '',
-    div_mensajeNombre: '',
-    div_claseNombre: 'badge badge-danger',
-    div_aparecer: false,
-    deshabilitar_boton: 1
-  },
+  el: '#category',
+  data: {},
   methods: {
-    getCategory: function getCategory() {
-      var _this = this;
-
-      var url = '/api/category/' + this.nombre;
-      axios.get(url).then(function (response) {
-        _this.div_mensajeNombre = response.data;
-        console.log(response.data);
-
-        if (_this.div_mensajeNombre === "Nombre Existe") {
-          _this.div_claseNombre = 'badge badge-danger';
-          _this.deshabilitar_boton = 1;
-          _this.div_aparecer = true;
-        } else {
-          _this.deshabilitar_boton = 0;
-        }
-      });
-    },
     mensaje: function mensaje(_mensaje) {
       swal({
         title: '¿Está seguro de eliminar esta categoría?',
@@ -49729,12 +49706,7 @@ var apicategory = new Vue({
       });
     }
   },
-  mounted: function mounted() {
-    if (document.getElementById('editar')) {
-      this.nombre = document.getElementById('nombretemp').innerHTML;
-      this.deshabilitar_boton = 0;
-    }
-  }
+  mounted: function mounted() {}
 });
 
 /***/ }),

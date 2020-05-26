@@ -29,26 +29,21 @@
 
                             <div class="form-group">
                                 <label for="nombre">Nombre</label>
-                                <input v-model="nombre"
-
-                                    @blur="getCategory"
-                                    @focus = "div_aparecer= false"
-
-                                class="form-control" type="text" name="name"  value="{{ old('name')}}">
-                                <div v-if="div_aparecer" v-bind:class="div_claseNombre">
-                                    @{{ div_mensajeNombre }}
-                                </div>
-                                <br v-if="div_aparecer">
+                            <input class="form-control  @error('name') is-invalid @enderror" type="text" name="name" value="{{old('name')}}">
+                                @error('name')
+                                <small class="form-text text-danger">{{ $message }}</small>
+                                @enderror
                                 <label for="descripcion">Descripción</label>
-                                <textarea class="form-control" name="description" id="descripcion" cols="30" rows="5"></textarea>
+                            <textarea class="form-control  @error('description') is-invalid @enderror" name="description" id="descripcion" cols="30" rows="5">{{old('description')}}</textarea>
+                                @error('description')
+                                <small class="form-text text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
             </div>
             <!-- /.card-body -->
             <div class="card-footer">
             <a href="{{ route('cancelar','admin.category.index')}}" class="btn btn-danger btn-sm float-left">Cancelar</a>
-                <input
-                :disabled = "deshabilitar_boton==1"
-               type="submit" value="Guardar" class="btn btn-primary float-right">
+                <input type="submit" value="Guardar" class="btn btn-primary float-right">
 
             </div>
             <!-- /.card-footer-->

@@ -11,7 +11,7 @@
 @section('contenido')
           <!-- Default box -->
 
-        <div id="apicategory">
+        <div id="category">
             <form action="{{ route('admin.category.update', $category)}}" method="POST">
              @csrf @method('PUT')
           <div class="card">
@@ -25,28 +25,20 @@
               </div>
             </div>
             <div class="card-body">
-
-                <span style="display:none" id="editar">{{$editar}}</span>
-                <span style="display:none" id="nombretemp">{{$category->name}}</span>
             <div class="form-group">
                 <label for="nombre">Nombre</label>
-                    <input v-model="nombre"
-                     @blur="getCategory"
-                     @focus = "div_aparecer= false"
-                     class="form-control" type="text" name="name" id="nombre" value="{{$category->name}}">
-                    <div v-if="div_aparecer" v-bind:class="div_claseNombre">
-                     @{{ div_mensajeNombre }}
-                    </div>
-                        <br v-if="div_aparecer">
+                    <input   class="form-control" type="text" name="name" id="nombre" value="{{$category->name}}">
                              <label for="descripcion">Descripción</label>
-                                   <textarea class="form-control" name="description" id="descripcion" cols="30" rows="5">{{$category->description}}</textarea>
+                                   <textarea class="form-control @error('description') is-invalid @enderror" name="description" id="descripcion" cols="30" rows="5">{{$category->description}}</textarea>
+                                @error('description')
+                                <small class="form-text text-danger">{{ $message }}</small>
+                                @enderror
             </div>
             </div>
             <!-- /.card-body -->
             <div class="card-footer">
             <a href="{{ route('cancelar','admin.category.index')}}" class="btn btn-danger btn-sm float-left">Cancelar</a>
                 <input
-                :disabled = "deshabilitar_boton==1"
                type="submit" value="Guardar" class="btn btn-primary float-right">
 
             </div>

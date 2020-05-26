@@ -4,8 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Category;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Categoria\CategoryCreateREquest;
+use App\Http\Requests\Categoria\CategoryUpdateRequest;
 use Illuminate\Http\Request;
-use App\Http\Requests\CategoryRequest;
+
+
 
 class AdminCategoryController extends Controller
 {
@@ -42,7 +45,7 @@ class AdminCategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CategoryRequest $request)
+    public function store(CategoryCreateREquest $request)
     {
         Category::create($request->validated());
         return redirect()->route('admin.category.index')->with('datos','¡Registros creados correctamente!');
@@ -79,7 +82,7 @@ class AdminCategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(CategoryRequest $request, Category $category)
+    public function update(CategoryUpdateRequest $request, Category $category)
     {
         $category->fill($request->validated());
         $category->save();

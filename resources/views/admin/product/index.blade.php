@@ -1,6 +1,6 @@
 @extends('plantilla.admin')
 
-@section('title','Administración de Categorías')
+@section('title','Administración de Productos')
 
 @section('breadcrumb')
  <li class="breadcrumb-item active"> @yield('title')</li>
@@ -9,11 +9,11 @@
 @section('contenido')
 <!-- /.row -->
 
-<div id="category" class="row">
+<div id="apicategory" class="row">
     <div class="col-12">
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title">Sección de categorías</h3>
+          <h3 class="card-title">Sección de Productos</h3>
 
           <div class="card-tools">
              <form action="">
@@ -31,38 +31,38 @@
         </div>
         <!-- /.card-header -->
         <div class="card-body table-responsive p-0" style="height: 300px;">
-            <a href="{{route('admin.category.create')}}" class="btn btn-primary float-right m-2">Crear</a>
+            <a href="{{route('admin.product.create')}}" class="btn btn-primary float-right m-2">Crear</a>
           <table class="table table-head-fixed">
             <thead>
               <tr>
                 <th>ID</th>
                 <th>Nombre</th>
-                <th>Descripcion</th>
-                <th>Fecha Creacion</th>
-                <th>Fecha Modificacion</th>
+                <th>Categoria</th>
+                <th>Precio Actual</th>
+                <th>Cantidad</th>
                 <th colspan="3"></th>
               </tr>
             </thead>
             <tbody>
-                @forelse ($categorias as $category)
+                @forelse ($productos as $product)
                 <tr>
-                    <td>{{$category->id}}</td>
-                    <td>{{$category->name}}</td>
-                    <td>{{$category->description}}</td>
-                    <td>{{$category->created_at}}</td>
-                    <td>{{$category->updated_at}}</td>
-                    <td> <a href="{{route('admin.category.show',$category)}}" class="btn btn-default btn-sm"><i class="fa fa-eye"></i></a></td>
-                    <td> <a href="{{route('admin.category.edit',$category)}}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a></td>
-                    <td><button class="btn btn-danger btn-sm" v-on:click="mensaje({{$category->id}})"><i class="fa fa-trash"></i></button></td>
+                    <td>{{$product->id}}</td>
+                    <td>{{$product->name}}</td>
+                    <td>{{$product->category->name}}</td>
+                    <td>{{$product->actual_price}}</td>
+                    <td>{{$product->quantity}}</td>
+                    <td> <a href="{{route('admin.product.show',$product)}}" class="btn btn-default btn-sm"><i class="fa fa-eye"></i></a></td>
+                    <td> <a href="{{route('admin.product.edit',$product)}}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a></td>
+                    <td><button class="btn btn-danger btn-sm" v-on:click="mensaje({{$product->id}})"><i class="fa fa-trash"></i></button></td>
 
                 </tr>
                 @empty
-                <tr><td colspan="4">NO EXISTEN CATEGORÍAS</td></tr>
+                <tr><td colspan="4">NO EXISTEN PRODUCTOS</td></tr>
                 @endforelse
 
              </tbody>
           </table>
-          {{$categorias->appends($_GET)->links()}}
+          {{$productos->appends($_GET)->links()}}
         </div>
         <!-- /.card-body -->
       </div>
