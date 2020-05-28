@@ -38,7 +38,8 @@ class ProductCreateRequest extends FormRequest
             'sales'=>'sometimes',
             'product_status'=>'sometimes|min:1',
             'status'=>'sometimes|boolean',
-            'slider'=>'sometimes|boolean'
+            'slider'=>'sometimes|boolean',
+            'images.*'=>'image|mimes:jpeg,png,jpg,gif,svg'
 
         ];
     }

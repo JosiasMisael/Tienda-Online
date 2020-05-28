@@ -53,25 +53,6 @@
           </div>
         </div>
         <!-- /.card -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         <div class="card card-info">
           <div class="card-header">
             <h3 class="card-title">Datos del producto</h3>
@@ -119,11 +100,7 @@
           <div class="card-footer">
         </div>
       </div>
-
         <!-- /.card -->
-
-
-
          <div class="card card-success">
           <div class="card-header">
             <h3 class="card-title">Sección de Precios</h3>
@@ -193,14 +170,6 @@
           </div>
         </div>
         <!-- /.card -->
-
-
-
-
-
-
-
-
    <div class="row">
           <div class="col-md-6">
             <div class="card card-primary">
@@ -230,10 +199,6 @@
             <!-- /.card -->
        </div>
         <!-- /.col-md-6 -->
-
-
-
-
    <div class="col-md-6">
             <div class="card card-info">
               <div class="card-header">
@@ -264,56 +229,51 @@
         <!-- /.col-md-6 -->
       </div>
       <!-- /.row -->
-
-
-
          <div class="card card-warning">
           <div class="card-header">
             <h3 class="card-title">Imagenes</h3>
-
-
           </div>
           <!-- /.card-header -->
           <div class="card-body">
 
             <div class="form-group">
 
-               <label for="archivosimagenes">Subir varias imagenes</label>
+               <label for="images">añadir imagenes</label>
 
-               <input type="file" class="form-control-file" id="archivosimagenes[]" multiple
+               <input type="file" class="form-control-file @error('images') is-invalid @enderror" name="images[]" id="images[]" multiple
                accept="image/*" >
+               @error('images')
+                  <small class="form-text text-danger">{{ $message }}</small>
+              @enderror
+               <div class="description">
+                   Un numero ilimitados de archivos pueden ser cargados en este campo
+                   <br>
+                   limite de 2048 MB por imagen
+                   <br>
+                   Tipos permitidos: jpeg, png, jpg, gif, svg
+                   <br>
+               </div>
             </div>
-
-
           </div>
-
-
           <!-- /.card-body -->
           <div class="card-footer">
 
           </div>
         </div>
         <!-- /.card -->
-
-
       <div class="card card-danger">
           <div class="card-header">
             <h3 class="card-title">Administración</h3>
           </div>
           <!-- /.card-header -->
       <div class="card-body">
-
        <div class="row">
               <div class="col-md-6">
                 <div class="form-group">
-
                   <label>Estado</label>
                   <input  class="form-control" type="text" id="estado" name="product_status" value="Nuevo">
-
-
                 </div>
                 <!-- /.form-group -->
-
               </div>
               <!-- /.col -->
               <div class="col-sm-6">
@@ -332,17 +292,9 @@
                       <label class="custom-control-label" for="sliderprincipal">Aparece en el Slider principal</label>
                     </div>
                   </div>
-
                   </div>
-
-
-
        </div>
             <!-- /.row -->
-
-
-
-
        <div class="row">
               <div class="col-md-12">
                 <div class="form-group">
@@ -356,54 +308,18 @@
 
               </div>
               <!-- /.col -->
-
-
-
-
-
        </div>
             <!-- /.row -->
-
-
-
-
           </div>
-
-
-
           <!-- /.card-body -->
           <div class="card-footer">
 
           </div>
         </div>
         <!-- /.card -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
       </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
-
-
-
     </form>
 
  @endsection

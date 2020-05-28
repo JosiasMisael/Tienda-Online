@@ -53,38 +53,49 @@ class AdminProductController extends Controller
      */
     public function store(ProductCreateRequest $request)
     {
+       $request->validated();
+       $prod = new Product();
+       $prod->name = $request->name;
+       $prod->category_id = $request->category_id;
+       $prod->quantity = $request->quantity;
+       $prod->actual_price = $request->actual_price;
+       $prod->previous_price = $request->previous_price;
+       $prod->discount = $request->discount;
+       $prod->short_description = $request->short_description;
+       $prod->long_description = $request->long_description;
+       $prod->specification = $request->specification;
+       $prod->date_of_interest = $request->date_of_interest;
+       $prod->product_status = $request->product_status;
 
-        $request->validated();
-        $prod = new Product();
-        $prod->name = $request->name;
-        $prod->category_id = $request->category_id;
-        $prod->quantity = $request->quantity;
-        $prod->actual_price = $request->actual_price;
-        $prod->previous_price = $request->previous_price;
-        $prod->discount = $request->discount;
-        $prod->short_description = $request->short_description;
-        $prod->long_description = $request->long_description;
-        $prod->specification = $request->specification;
-        $prod->date_of_interest = $request->date_of_interest;
-        $prod->product_status = $request->product_status;
+       if ($request->status)
+       {
+           $prod->status ='1';
+       }else
+       {
+           $prod->status ='0';
+       }
 
-        if ($request->status)
-        {
-            $prod->status ='1';
-        }else
-        {
-            $prod->status ='0';
-        }
+       if ($request->slider)
+       {
+           $prod->slider ='1';
+       }else
+       {
+           $prod->slider ='0';
+       }
 
-        if ($request->slider)
-        {
-            $prod->slider ='1';
-        }else
-        {
-            $prod->slider ='0';
+       $urlimages = [];
+        if($request->hasFile('images')){ //Verficamos si existem archivos de tipo file
+          $imagenes=$request->file('images'); //Si existen  se guardan en la variable $images
+          foreach ($imagenes as $imagen) {  //Realizamos un forEcha para ver cuantas imagenes tiene
+             $nommbre = uniqid().'.'. $imagen->getClientOriginalExtension(); //Le asignamos un nuevo nombre a las imagenes y del original solo le agregamos su extension .jpg
+             $ruta = public_path().'/images'; //creamos la ruta o el directorio donde lo vamos a guardar.
+             $imagen->move($ruta, $nommbre); // Guardamos la imagenes en el nuevo directorio
+             $urlimages[]['url']= '/images/'. $nommbre;//Para guardar la ruta en la tabla imagenes necesitamos de la carpeta donde se encuentra  y el nombre de la imagen
+          }
         }
 
         $prod->save();
+        $prod->images()->createMany($urlimages);
         return redirect()->route('admin.product.index')->with('datos',' ¡Registro del Producto creado correctamente') ;
     }
 

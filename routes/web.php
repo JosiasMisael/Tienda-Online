@@ -1,21 +1,39 @@
 <?php
 
+use App\Category;
+use App\Image;
+use App\Product;
+use App\User;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+
+
+
+//Pruebas
+Route::get('/prueba', function () {
+  //16 Eliminar un imagen
+
+  $product= Product::with('images')->find(3);
+  return $product;
+
+});
+
+//Mostrar Resultados
+Route::get('/resultado', function () {
+
+    $image = Image::orderBy('id','DESC')->get();
+    return $image;
+});
+
+
+
+
+
+
 
 Route::get('/', function () {
-  return view('tienda.index');
-});
+    return view('tienda.index');
+  });
 
 
 Auth::routes();
