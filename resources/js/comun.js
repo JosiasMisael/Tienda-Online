@@ -26,9 +26,13 @@ const app = new Vue({
 }
 
 
-if(document.getElementById('apicategory')){
+if(document.getElementById('category')){
     require('./admin/apicategory')
 
-    }
+}
 
+if(document.getElementById('product')){
+    require('./admin/producto')
+
+}
 

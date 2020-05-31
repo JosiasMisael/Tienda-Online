@@ -14583,37 +14583,94 @@ module.exports = g;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var apicategory = new Vue({
+var category = new Vue({
   el: '#category',
   data: {},
   methods: {
     mensaje: function mensaje(_mensaje) {
-      swal({
-        title: '¿Está seguro de eliminar esta categoría?',
-        type: 'warning',
+      Swal.fire({
+        title: '¿Estas Seguro de eliminar una categoria?',
+        icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#0CC27E',
         cancelButtonColor: '#FF586B',
-        confirmButtonText: 'Aceptar',
-        cancelButtonText: 'Cancelar',
-        confirmButtonClass: 'btn btn-success mr-5',
-        cancelButtonClass: 'btn btn-danger',
-        buttonsStyling: false
+        confirmButtonText: 'Eliminar',
+        cancelButtonText: 'Cancelar'
       }).then(function (result) {
-        var url = '/admin/category/' + _mensaje;
-        axios["delete"](url).then(function (response) {
-          swal('¡Eliminado!', 'El registro ha sido eliminado con éxito.');
-          setTimeout(function () {
-            window.location = response.data.redirect;
-          }, 1500);
-        });
-      }, function (dismiss) {
-        // dismiss can be 'overlay', 'cancel', 'close', 'esc', 'timer'
-        if (dismiss === 'cancel') {}
+        if (result.value) {
+          var url = '/admin/category/' + _mensaje;
+          axios["delete"](url).then(function (response) {
+            Swal.fire('¡Eliminado!', 'El registro ha sido eliminado con éxito.');
+            setTimeout(function () {
+              window.location = response.data.redirect;
+            }, 1500);
+          })["catch"](function (error) {
+            console.log(error);
+          });
+        }
       });
     }
   },
   mounted: function mounted() {}
+});
+
+/***/ }),
+
+/***/ "./resources/js/admin/producto.js":
+/*!****************************************!*\
+  !*** ./resources/js/admin/producto.js ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var product = new Vue({
+  el: '#product',
+  data: {
+    previous_price: '',
+    actual_price: '',
+    discount: 0,
+    descuento: '',
+    descuento_mensaje: ''
+  },
+  computed: {
+    generarDescuento: function generarDescuento() {
+      if (this.discount > 100) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'El porcentaje no puede ser mayor a 100!'
+        }), this.discount = 100;
+        this.descuento = this.previous_price * this.discount / 100;
+        this.actual_price = this.previous_price - this.descuento;
+        return this.descuento_mensaje = 'El producto tiene el 100% de descuento';
+      } else if (this.discount < 0) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'El porcentaje no puede ser menor a 0!'
+        }), this.discount = 0;
+        this.descuento = this.previous_price * this.discount / 100;
+        this.actual_price = this.previous_price - this.descuento;
+        return this.descuento_mensaje = '';
+      } else if (this.discount > 0) {
+        this.descuento = this.previous_price * this.discount / 100;
+        this.actual_price = this.previous_price - this.descuento;
+
+        if (this.discount === 100) {
+          this.descuento_mensaje = 'El producto es regalado';
+        } else {
+          this.descuento_mensaje = "Hay un descuetno de Q" + this.descuento;
+        }
+
+        return this.descuento_mensaje;
+      } else {
+        this.descuento = '';
+        this.actual_price = this.previous_price;
+        this.descuento_mensaje = '';
+        return this.descuento_mensaje;
+      }
+    }
+  }
 });
 
 /***/ }),
@@ -14732,8 +14789,12 @@ if (document.getElementById('app')) {
   });
 }
 
-if (document.getElementById('apicategory')) {
+if (document.getElementById('category')) {
   __webpack_require__(/*! ./admin/apicategory */ "./resources/js/admin/apicategory.js");
+}
+
+if (document.getElementById('product')) {
+  __webpack_require__(/*! ./admin/producto */ "./resources/js/admin/producto.js");
 }
 
 /***/ }),

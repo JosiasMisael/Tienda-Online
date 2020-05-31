@@ -24,11 +24,11 @@ class AdminProductController extends Controller
 
        if($buscar === '')
        {
-      $productos =  Product::paginate(4);
+      $productos =  Product::with('images','category')->paginate(4);
        }
        else
        {
-        $productos = Product::where('name','like','%'.$buscar.'%')->paginate(4);
+        $productos = Product::with('images','category')->where('name','like','%'.$buscar.'%')->paginate(4);
        }
 
        return view('admin.product.index', compact('productos'));
@@ -82,8 +82,8 @@ class AdminProductController extends Controller
        {
            $prod->slider ='0';
        }
-
-       $urlimages = [];
+       $prod->save();
+        $urlimages = [];
         if($request->hasFile('images')){ //Verficamos si existem archivos de tipo file
           $imagenes=$request->file('images'); //Si existen  se guardan en la variable $images
           foreach ($imagenes as $imagen) {  //Realizamos un forEcha para ver cuantas imagenes tiene
@@ -93,10 +93,8 @@ class AdminProductController extends Controller
              $urlimages[]['url']= '/images/'. $nommbre;//Para guardar la ruta en la tabla imagenes necesitamos de la carpeta donde se encuentra  y el nombre de la imagen
           }
         }
-
-        $prod->save();
         $prod->images()->createMany($urlimages);
-        return redirect()->route('admin.product.index')->with('datos',' ¡Registro del Producto creado correctamente') ;
+        return redirect()->route('admin.product.index')->with('datos',' ¡Registro del Producto creado correctamente');
     }
 
     /**
@@ -118,7 +116,9 @@ class AdminProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        $categories = Category::select('id','name')->get();
+         return view('admin.product.edit',compact('product','categories'));
+
     }
 
     /**

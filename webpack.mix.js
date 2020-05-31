@@ -20,7 +20,6 @@ mix.js(['resources/js/app.js'], 'public/js')
         'public/asset/plugins/OwlCarousel2-2.2.1/owl.theme.default.css',
         'public/asset/plugins/OwlCarousel2-2.2.1/animate.css',
         'public/asset/styles/comun.css',
-        'public/asset/styles/sweetalert2.min',
     ], 'public/css/all.css');
 
     mix.scripts([
@@ -34,7 +33,6 @@ mix.js(['resources/js/app.js'], 'public/js')
      'public/asset/plugins/progressbar/progressbar.min.js',
      'public/asset/plugins/parallax-js-master/parallax.min.js',
      'public/asset/js/custom.js',
-     'public/asset/js/sweetalert2.min.js'
   ], 'public/js/all.js');
 
 

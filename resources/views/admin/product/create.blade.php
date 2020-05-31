@@ -8,8 +8,30 @@
   <li class="breadcrumb-item active">@yield('title')</li>
 @endsection
 
+@section('estilos')
+<link rel="stylesheet" href="/adminlte/plugins/select2/css/select2.css">
+<link rel="stylesheet" href="/adminlte/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+@endsection
+
+@section('script')
+<!-- Select2 -->
+<script src="/adminlte/plugins/select2/js/select2.full.min.js"></script>
+<script src="/adminlte/ckeditor/ckeditor.js"></script>
+<script>
+    $(function () {
+  $(' #category_id').select2()
+
+  //Initialize Select2 Elements
+  $('.select2bs4').select2({
+    theme: 'bootstrap4'
+  });
+
+    });
+</script>
+@endsection
 
 @section('contenido')
+
 
 <form action="{{ route('admin.product.store') }}" method="POST" enctype="multipart/form-data" >
 @csrf
@@ -80,7 +102,7 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label>Categoria</label>
-                  <select name="category_id" class="form-control select2" style="width: 100%;">
+                  <select name="category_id" id="category_id" class="form-control" style="width: 100%;">
                     @foreach($categories as $categoria)
                      @if ($loop->first)
                         <option value="{{ $categoria->id }}" selected="selected">{{ $categoria->name }}</option>
@@ -89,6 +111,7 @@
                      @endif
                     @endforeach
                   </select>
+
                 </div>
                 <!-- /.form-group -->
               </div>
@@ -101,73 +124,79 @@
         </div>
       </div>
         <!-- /.card -->
-         <div class="card card-success">
-          <div class="card-header">
-            <h3 class="card-title">Sección de Precios</h3>
-          </div>
-          <!-- /.card-header -->
-          <div class="card-body">
-            <div class="row">
-              <div class="col-md-3">
-                <div class="form-group">
-                  <label>Precio anterior</label>
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text">Q</span>
-                      </div>
-                      <input class="form-control @error('previous_price') is-invalid @enderror" type="number" id="precioanterior" name="previous_price" min="0"  step=".01" value="{{ old('previous_price')}}">
-                      @error('previous_price')
-                      <small class="form-text text-danger">{{ $message }}</small>
-                      @enderror
-                    </div>
-                </div>
-                <!-- /.form-group -->
-              </div>
-              <!-- /.col -->
-              <div class="col-md-3">
-                <div class="form-group">
-                  <label>Precio actual</label>
-                   <div class="input-group">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text">Q</span>
-                      </div>
-                      <input class="form-control @error('actual_price') is-invalid @enderror" type="number" id="precioactual" name="actual_price" min="0" value="value="{{ old('actual_price')}}"" step=".01">
-                      @error('actual_price')
-                      <small class="form-text text-danger">{{ $message }}</small>
-                      @enderror
-                   </div>
-                <br>
-                <span id="descuento"></span>
-                </div>
-                <!-- /.form-group -->
-              </div>
-              <!-- /.col -->
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label>Porcentaje de descuento</label>
-                   <div class="input-group">
-                  <input class="form-control @error('discount') is-invalid  @enderror" type="number" id="porcentajededescuento" name="discount" step="any" min="0" min="100" value="{{ old('discount')}}" >
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">%</span>
-                  </div>
-                </div>
-                @error('discount')
-                <small class="form-text text-danger">{{ $message }}</small>
-                @enderror
-                <br>
-                <div class="progress">
-                    <div id="barraprogreso" class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
-                </div>
-                </div>
-                <!-- /.form-group -->
-              </div>
-              <!-- /.col -->
+        <div id="product" class="card card-success">
+            <div class="card-header">
+              <h3 class="card-title">Sección de Precios</h3>
             </div>
-            <!-- /.row -->
+            <!-- /.card-header -->
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label>Precio anterior</label>
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">Q</span>
+                        </div>
+                        <input v-model="previous_price"  class="form-control @error('previous_price') is-invalid @enderror " type="number"
+                    id="previous_price" name="previous_price" min="0"  step=".01" {{old('previous_price')}}>
+                        @error('previous_price')
+                        <small class="form-text text-danger">{{ $message }}</small>
+                        @enderror
+
+
+                      </div>
+                  </div>
+                  <!-- /.form-group -->
+                </div>
+                <!-- /.col -->
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label>Precio actual</label>
+                     <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">Q</span>
+                        </div>
+                        <input v-model="actual_price" class="form-control " type="number" id="actual_price"
+                    name="actual_price" min="0"  step=".01">
+
+                     </div>
+                  <br>
+                  <span id="descuento">
+                      @{{generarDescuento}}
+                  </span>
+                  </div>
+                  <!-- /.form-group -->
+                </div>
+                <!-- /.col -->
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Porcentaje de descuento</label>
+                     <div class="input-group">
+                    <input  v-model="discount" class="form-control " type="number" id="discount" name="discount" step="any" min="0" max="100">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">%</span>
+                    </div>
+                  </div>
+                  <br>
+                  <div class="progress">
+                      <div id="barraprogreso" class="progress-bar" role="progressbar"
+
+                        v-bind:style="{width:discount+'%'}"
+                        aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">@{{discount}}%</div>
+                  </div>
+                  </div>
+                  <!-- /.form-group -->
+                </div>
+                <!-- /.col -->
+              </div>
+              <!-- /.row -->
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer">
+            </div>
           </div>
-          <!-- /.card-body -->
-          <div class="card-footer">
-          </div>
+          <!-- /.card -->
         </div>
         <!-- /.card -->
    <div class="row">
@@ -180,7 +209,7 @@
                 <!-- Date dd/mm/yyyy -->
                 <div class="form-group">
                   <label>Descripción corta:</label>
-                  <textarea class="form-control @error('short_description') is-invalid @enderror" name="short_description" id="descripcion_corta" rows="3">{{ old('shor_description')}}</textarea>
+                  <textarea class="form-control ckeditor" name="short_description" id="descripcion_corta" rows="3">{{ old('short_description')}}</textarea>
                   @error('short_description')
                   <small class="form-text text-danger">{{ $message }}</small>
                   @enderror
@@ -188,7 +217,7 @@
                 <!-- /.form group -->
                <div class="form-group">
                   <label>Descripción larga:</label>
-                  <textarea class="form-control @error('long_description') is-invalid @enderror" name="long_description" id="descripcion_larga" rows="5">{{ old('long_description')}}</textarea>
+                  <textarea class="form-control ckeditor" name="long_description" id="descripcion_larga" rows="5">{{ old('long_description')}}</textarea>
                   @error('long_description')
                   <small class="form-text text-danger">{{ $message }}</small>
                   @enderror
@@ -208,15 +237,16 @@
                 <!-- Date dd/mm/yyyy -->
                 <div class="form-group">
                   <label>Especificaciones:</label>
-                  <textarea class="form-control @error('specification') is-invalid @enderror" name="specification" id="especificaciones" rows="3"></textarea>
-                  @error('specification')
-                  <small class="form-text text-danger">{{ $message }}</small>
-                  @enderror
+                <textarea class="form-control ckeditor" name="specification" id="especificaciones" rows="3"></textarea>
+                @error('specification')
+                <small class="form-text text-danger">{{ $message }}</small>
+                @enderror
+
                 </div>
                 <!-- /.form group -->
                <div class="form-group">
                   <label>Datos de interes:</label>
-                  <textarea class="form-control @error('date_of_interest') is-invalid @enderror" name="date_of_interest" id="datos_de_interes" rows="5"></textarea>
+               <textarea class="form-control ckeditor " name="date_of_interest" id="datos_de_interes" rows="5">{{old('date_of_interest')}}</textarea>
                   @error('date_of_interest')
                   <small class="form-text text-danger">{{ $message }}</small>
                   @enderror
@@ -240,9 +270,9 @@
 
                <label for="images">añadir imagenes</label>
 
-               <input type="file" class="form-control-file @error('images') is-invalid @enderror" name="images[]" id="images[]" multiple
+               <input type="file" class="form-control-file @error('images.*') is-invalid @enderror" name="images[]" id="images[]" multiple
                accept="image/*" >
-               @error('images')
+               @error('images.*')
                   <small class="form-text text-danger">{{ $message }}</small>
               @enderror
                <div class="description">

@@ -27,9 +27,7 @@ class ProductCreateRequest extends FormRequest
             'name'=>'required|unique:App\Product,name',
             'category_id'=>'required|integer',
             'quantity' => 'required|integer',
-            'actual_price' =>'required|integer',
             'previous_price'=>'required|integer',
-            'discount'=>'required|integer',
             'short_description'=>'required|min:4',
             'long_description'=>'|min:2',
             'specification'=>'|min:3',
@@ -39,7 +37,7 @@ class ProductCreateRequest extends FormRequest
             'product_status'=>'sometimes|min:1',
             'status'=>'sometimes|boolean',
             'slider'=>'sometimes|boolean',
-            'images.*'=>'image|mimes:jpeg,png,jpg,gif,svg'
+            'images.*'=>'|image|mimes:jpeg,png,jpg,gif,svg'
 
         ];
     }

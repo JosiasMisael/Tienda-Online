@@ -1,4 +1,4 @@
-const apicategory = new Vue({
+const category = new Vue({
     el: '#category',
     data: {
 
@@ -6,39 +6,31 @@ const apicategory = new Vue({
     methods: {
         mensaje : function(mensaje){
 
-                swal({
-                        title: '¿Está seguro de eliminar esta categoría?',
-                        type: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#0CC27E',
-                        cancelButtonColor: '#FF586B',
-                        confirmButtonText: 'Aceptar',
-                        cancelButtonText: 'Cancelar',
-                        confirmButtonClass: 'btn btn-success mr-5',
-                        cancelButtonClass: 'btn btn-danger',
-                        buttonsStyling: false
-                    }).then((result) =>{
+            Swal.fire({
+                title: '¿Estas Seguro de eliminar una categoria?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#0CC27E',
+                cancelButtonColor: '#FF586B',
+                confirmButtonText: 'Eliminar',
+                cancelButtonText: 'Cancelar'
+              }).then((result) => {
 
-                            let url = '/admin/category/'+ mensaje;
-                            axios.delete(url).then(response => {
-
-                                    swal(
-                                        '¡Eliminado!',
-                                        'El registro ha sido eliminado con éxito.',
-
-                                        )
-                                   setTimeout(function(){
-
-                                    window.location = response.data.redirect;
-                                   },1500)
-                             })
-                    }, function (dismiss) {
-                        // dismiss can be 'overlay', 'cancel', 'close', 'esc', 'timer'
-                        if (dismiss === 'cancel') {
-                        }
-                    })
-
-
+                if (result.value) {
+                    let url = '/admin/category/'+ mensaje;
+                    axios.delete(url).then(response => {
+                        Swal.fire(
+                            '¡Eliminado!',
+                            'El registro ha sido eliminado con éxito.',
+                            )
+                       setTimeout(function(){
+                        window.location = response.data.redirect;
+                       },1500);
+                    }).catch(function (error) {
+                        console.log(error);
+                    });
+                }
+              })
           },
 
 
@@ -47,3 +39,5 @@ const apicategory = new Vue({
     mounted(){
     }
 });
+
+

@@ -8,7 +8,18 @@
 
 @section('contenido')
 <!-- /.row -->
-
+<style type="text/css">
+ .table1{
+     width: 100%;
+     margin-bottom: 1rem;
+     text-align: center;
+ }
+ .table1 td, .table1 th {
+     padding: .75rem;
+     vertical-align: center;
+     border-top: 1px solid
+ }
+</style>
 <div id="apicategory" class="row">
     <div class="col-12">
       <div class="card">
@@ -32,10 +43,11 @@
         <!-- /.card-header -->
         <div class="card-body table-responsive p-0" style="height: 300px;">
             <a href="{{route('admin.product.create')}}" class="btn btn-primary float-right m-2">Crear</a>
-          <table class="table table-head-fixed">
+          <table class="table1 table-head-fixed">
             <thead>
               <tr>
                 <th>ID</th>
+                <th>Imagen</th>
                 <th>Nombre</th>
                 <th>Categoria</th>
                 <th>Precio Actual</th>
@@ -47,6 +59,14 @@
                 @forelse ($productos as $product)
                 <tr>
                     <td>{{$product->id}}</td>
+                    <td>
+                        @if ($product->images->count()<=0 )
+                        <img style="height:100px;  width:100px;" src="/images/a.png" class="rounded-circle">
+                        @else
+                    <img style="height:100px; width:100px;" src="{{$product->images->random()->url}}" class="rounded-circle">
+                        @endif
+
+                    </td>
                     <td>{{$product->name}}</td>
                     <td>{{$product->category->name}}</td>
                     <td>{{$product->actual_price}}</td>
@@ -69,4 +89,6 @@
       <!-- /.card -->
     </div>
 </div>
+
+
   @endsection

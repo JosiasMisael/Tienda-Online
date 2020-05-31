@@ -9,20 +9,14 @@
 
   <!-- Font Awesome -->
   <link rel="stylesheet" href="http://127.0.0.1:8000/adminlte/plugins/fontawesome-free/css/all.min.css">
-
-
-  <link rel="stylesheet" href="http://127.0.0.1:8000/adminlte/plugins/nuevo/sweetalert2.min.css">
+ <!-- <link rel="stylesheet" href="http://127.0.0.1:8000/adminlte/plugins/nuevo/sweetalert2.min.css">-->
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-
-
-
   <!-- overlayScrollbars -->
   <link rel="stylesheet" href="http://127.0.0.1:8000/adminlte/dist/css/adminlte.min.css">
-
-
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  @yield('estilos')
 </head>
 <body class="hold-transition sidebar-mini">
 <!-- Site wrapper -->
@@ -229,13 +223,17 @@
 <!-- jQuery -->
 <script src="http://127.0.0.1:8000/adminlte/plugins/jquery/jquery.min.js"></script>
 
-<script src="http://127.0.0.1:8000/adminlte/plugins/nuevo/sweetalert2.min.js"></script>
+<!--<script src="http://127.0.0.1:8000/adminlte/plugins/nuevo/sweetalert2.min.js"></script>-->
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
 <!-- Bootstrap 4 -->
 <script src="http://127.0.0.1:8000/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="http://127.0.0.1:8000/adminlte/dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="http://127.0.0.1:8000/adminlte/dist/js/demo.js"></script>
+ @yield('script')
 
 <script src="{{ asset('js/app_admin.js') }}"></script>
 </body>
